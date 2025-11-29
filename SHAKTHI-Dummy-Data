@@ -1,0 +1,1226 @@
+# SHAKTHI - COMPLETE DUMMY DATA FOR PROTOTYPE TESTING
+## MumbaiHacks 2025 | Team HASHTAG
+
+*This dummy data is ready to import into Google Sheets, PostgreSQL, or your n8n workflow for testing all 5 agents (AAHAR, FIT, AUSHADHI, CHANDRA, SANGHA).*
+
+---
+
+# TABLE OF CONTENTS
+1. [User Profiles](#user-profiles)
+2. [AAHAR - Nutrition Data](#aahar-nutrition-data)
+3. [FIT - Exercise Data](#fit-exercise-data)
+4. [AUSHADHI - Medication Data](#aushadhi-medication-data)
+5. [CHANDRA - Cycle Data](#chandra-cycle-data)
+6. [SANGHA - Community Data](#sangha-community-data)
+7. [Agent Coordination Logs](#agent-coordination-logs)
+8. [How to Use This Data](#how-to-use-this-data)
+
+---
+
+# USER PROFILES
+
+## User 1: Priya (Age 28, Mumbai, TTC - Trying to Conceive)
+
+```json
+{
+  "user_id": "USER_001",
+  "name": "Priya Kumar",
+  "age": 28,
+  "city": "Mumbai",
+  "phone": "+919876543210",
+  "email": "priya.kumar@email.com",
+  "pcos_type": "Lean PCOS (normal weight)",
+  "diagnosis_date": "2024-06-15",
+  "goals": ["fertility", "weight_loss", "cycle_regulation"],
+  "dietary_preference": "vegetarian",
+  "cuisine_preference": "North Indian",
+  "budget_per_day": "₹200-300",
+  "cooking_skill": "intermediate",
+  "medical_history": {
+    "current_medications": ["Metformin 1000mg twice daily", "Inositol 2g daily"],
+    "allergies": ["Peanuts"],
+    "comorbidities": ["Mild insulin resistance"]
+  },
+  "fitness_level": "beginner",
+  "devices_connected": ["Google Fit", "Smart thermometer"],
+  "language_preference": "English",
+  "created_at": "2024-11-01",
+  "monthly_budget": "₹399 (Standard Plan)"
+}
+```
+
+## User 2: Anjali (Age 35, Delhi, Lifestyle Management Focus)
+
+```json
+{
+  "user_id": "USER_002",
+  "name": "Anjali Sharma",
+  "age": 35,
+  "city": "Delhi",
+  "phone": "+919876543211",
+  "email": "anjali.sharma@email.com",
+  "pcos_type": "Classic PCOS (hyperandrogenic)",
+  "diagnosis_date": "2023-03-20",
+  "goals": ["weight_loss", "acne_reduction", "general_wellness"],
+  "dietary_preference": "non-vegetarian",
+  "cuisine_preference": "South Indian",
+  "budget_per_day": "₹150-250",
+  "cooking_skill": "advanced",
+  "medical_history": {
+    "current_medications": ["Metformin 500mg daily", "Birth control pill (Yasmin)"],
+    "allergies": "None",
+    "comorbidities": ["Acne (hormonal)", "Mild depression"]
+  },
+  "fitness_level": "intermediate",
+  "devices_connected": ["Fitbit Charge 5"],
+  "language_preference": "English/Hindi",
+  "created_at": "2024-10-15",
+  "monthly_budget": "₹699 (Premium+Coach)"
+}
+```
+
+## User 3: Meera (Age 32, Bangalore, Medication Adherence Focus)
+
+```json
+{
+  "user_id": "USER_003",
+  "name": "Meera Reddy",
+  "age": 32,
+  "city": "Bangalore",
+  "phone": "+919876543212",
+  "email": "meera.reddy@email.com",
+  "pcos_type": "Ovulatory PCOS",
+  "diagnosis_date": "2022-08-10",
+  "goals": ["medication_adherence", "weight_management", "fertility"],
+  "dietary_preference": "vegetarian",
+  "cuisine_preference": "Mixed (North + South)",
+  "budget_per_day": "₹250-400",
+  "cooking_skill": "intermediate",
+  "medical_history": {
+    "current_medications": ["Metformin 1500mg daily", "Spironolactone 100mg daily", "Vitamin D 2000 IU"],
+    "allergies": ["Sulfa drugs"],
+    "comorbidities": ["Insulin resistance", "Irregular periods"]
+  },
+  "fitness_level": "advanced",
+  "devices_connected": ["Apple Watch", "Google Fit", "Withings thermometer"],
+  "language_preference": "English",
+  "created_at": "2024-09-20",
+  "monthly_budget": "₹199 (Basic Plan)"
+}
+```
+
+---
+
+# AAHAR - NUTRITION DATA
+
+## Meal Database (Indian PCOS-Friendly Meals)
+
+```json
+[
+  {
+    "meal_id": "MEAL_001",
+    "meal_name": "Moong Dal Chilla with Mint Chutney",
+    "meal_type": "breakfast",
+    "cuisine": "North Indian",
+    "ingredients": [
+      {"item": "Moong dal (soaked)", "quantity": 100, "unit": "g"},
+      {"item": "Onion (chopped)", "quantity": 50, "unit": "g"},
+      {"item": "Green chili", "quantity": 1, "unit": "piece"},
+      {"item": "Ginger-garlic paste", "quantity": 5, "unit": "g"},
+      {"item": "Oil", "quantity": 10, "unit": "ml"}
+    ],
+    "glycemic_index": 38,
+    "calories": 180,
+    "protein_g": 12,
+    "carbs_g": 18,
+    "fat_g": 6,
+    "fiber_g": 4,
+    "prep_time_mins": 15,
+    "cost_inr": 45,
+    "recipe_video_link": "https://youtube.com/watch?v=moong-dal-chilla",
+    "tags": ["low-gi", "high-protein", "budget-friendly", "vegetarian"],
+    "user_ratings": [
+      {"user_id": "USER_001", "rating": 5, "comment": "Loved it! Easy to make"},
+      {"user_id": "USER_003", "rating": 4, "comment": "Good taste, filling"}
+    ]
+  },
+  {
+    "meal_id": "MEAL_002",
+    "meal_name": "Spinach Dal with Brown Rice",
+    "meal_type": "lunch",
+    "cuisine": "Mixed",
+    "ingredients": [
+      {"item": "Masoor dal (red lentils)", "quantity": 75, "unit": "g"},
+      {"item": "Spinach (chopped)", "quantity": 100, "unit": "g"},
+      {"item": "Brown rice", "quantity": 75, "unit": "g"},
+      {"item": "Turmeric", "quantity": 2, "unit": "g"},
+      {"item": "Oil", "quantity": 8, "unit": "ml"}
+    ],
+    "glycemic_index": 42,
+    "calories": 280,
+    "protein_g": 14,
+    "carbs_g": 38,
+    "fat_g": 5,
+    "fiber_g": 6,
+    "iron_mg": 8.5,
+    "prep_time_mins": 25,
+    "cost_inr": 55,
+    "recipe_video_link": "https://youtube.com/watch?v=spinach-dal",
+    "tags": ["iron-rich", "low-gi", "period-friendly", "vegan"],
+    "period_phase": "menstrual",
+    "user_ratings": [
+      {"user_id": "USER_001", "rating": 5, "comment": "Perfect iron boost!"}
+    ]
+  },
+  {
+    "meal_id": "MEAL_003",
+    "meal_name": "Grilled Chicken with Roasted Vegetables",
+    "meal_type": "dinner",
+    "cuisine": "Modern",
+    "ingredients": [
+      {"item": "Chicken breast", "quantity": 150, "unit": "g"},
+      {"item": "Broccoli", "quantity": 100, "unit": "g"},
+      {"item": "Bell pepper", "quantity": 75, "unit": "g"},
+      {"item": "Olive oil", "quantity": 10, "unit": "ml"},
+      {"item": "Lemon juice", "quantity": 15, "unit": "ml"}
+    ],
+    "glycemic_index": 25,
+    "calories": 320,
+    "protein_g": 38,
+    "carbs_g": 15,
+    "fat_g": 10,
+    "fiber_g": 4,
+    "prep_time_mins": 30,
+    "cost_inr": 120,
+    "recipe_video_link": "https://youtube.com/watch?v=grilled-chicken",
+    "tags": ["high-protein", "low-carb", "keto-friendly", "non-vegetarian"],
+    "user_ratings": [
+      {"user_id": "USER_002", "rating": 5, "comment": "Love this for dinner!"}
+    ]
+  },
+  {
+    "meal_id": "MEAL_004",
+    "meal_name": "Roasted Chana (Chickpeas)",
+    "meal_type": "snack",
+    "cuisine": "Indian",
+    "ingredients": [
+      {"item": "Chickpeas (boiled)", "quantity": 50, "unit": "g"},
+      {"item": "Oil", "quantity": 5, "unit": "ml"},
+      {"item": "Cumin powder", "quantity": 2, "unit": "g"},
+      {"item": "Salt", "quantity": 2, "unit": "g"}
+    ],
+    "glycemic_index": 28,
+    "calories": 110,
+    "protein_g": 6,
+    "carbs_g": 14,
+    "fat_g": 5,
+    "fiber_g": 4,
+    "prep_time_mins": 5,
+    "cost_inr": 15,
+    "recipe_video_link": "https://youtube.com/watch?v=roasted-chana",
+    "tags": ["snack", "low-gi", "budget-friendly", "vegan", "quick"],
+    "user_ratings": [
+      {"user_id": "USER_001", "rating": 5, "comment": "Perfect 3pm snack!"}
+    ]
+  },
+  {
+    "meal_id": "MEAL_005",
+    "meal_name": "Besan Chilla with Yogurt",
+    "meal_type": "breakfast",
+    "cuisine": "North Indian",
+    "ingredients": [
+      {"item": "Gram flour (besan)", "quantity": 75, "unit": "g"},
+      {"item": "Onion", "quantity": 50, "unit": "g"},
+      {"item": "Yogurt (plain)", "quantity": 100, "unit": "g"},
+      {"item": "Oil", "quantity": 8, "unit": "ml"}
+    ],
+    "glycemic_index": 32,
+    "calories": 200,
+    "protein_g": 10,
+    "carbs_g": 20,
+    "fat_g": 8,
+    "fiber_g": 3,
+    "prep_time_mins": 10,
+    "cost_inr": 35,
+    "recipe_video_link": "https://youtube.com/watch?v=besan-chilla",
+    "tags": ["low-gi", "high-protein", "vegetarian"],
+    "user_ratings": []
+  }
+]
+```
+
+## User Meal Preferences (USER_001 - Priya)
+
+```json
+{
+  "user_id": "USER_001",
+  "meal_preferences": {
+    "favorite_meals": ["MEAL_001", "MEAL_004"],
+    "disliked_meals": ["MEAL_005"],
+    "allergies": ["peanuts"],
+    "restrictions": ["vegetarian"],
+    "preferred_cuisines": ["North Indian", "South Indian"],
+    "meal_frequency": {
+      "breakfast": "7-8 AM",
+      "lunch": "1-2 PM",
+      "snack": "3-4 PM",
+      "dinner": "7-8 PM"
+    },
+    "budget_limits": {
+      "breakfast": "₹40-60",
+      "lunch": "₹60-80",
+      "snack": "₹15-20",
+      "dinner": "₹70-100"
+    }
+  }
+}
+```
+
+## User Meal Logs (Past 7 Days - USER_001)
+
+```json
+[
+  {
+    "log_id": "LOG_MEAL_001",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "time": "08:00",
+    "meal_id": "MEAL_001",
+    "meal_name": "Moong Dal Chilla",
+    "logged_at": "2025-11-29T08:15:00",
+    "status": "completed",
+    "notes": "Added extra chutney, was delicious!"
+  },
+  {
+    "log_id": "LOG_MEAL_002",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "time": "14:00",
+    "meal_id": "MEAL_002",
+    "meal_name": "Spinach Dal with Brown Rice",
+    "logged_at": "2025-11-29T14:30:00",
+    "status": "completed",
+    "notes": "Felt full for 4 hours, great!"
+  },
+  {
+    "log_id": "LOG_MEAL_003",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "time": "15:00",
+    "meal_id": "MEAL_004",
+    "meal_name": "Roasted Chana",
+    "logged_at": "2025-11-29T15:10:00",
+    "status": "completed",
+    "notes": "Energy boost before workout"
+  },
+  {
+    "log_id": "LOG_MEAL_004",
+    "user_id": "USER_001",
+    "date": "2025-11-28",
+    "time": "08:00",
+    "meal_id": "MEAL_001",
+    "meal_name": "Moong Dal Chilla",
+    "logged_at": "2025-11-28T08:20:00",
+    "status": "completed",
+    "notes": ""
+  },
+  {
+    "log_id": "LOG_MEAL_005",
+    "user_id": "USER_001",
+    "date": "2025-11-27",
+    "time": "15:00",
+    "meal_id": "MEAL_004",
+    "meal_name": "Roasted Chana",
+    "logged_at": "2025-11-27T15:05:00",
+    "status": "skipped",
+    "reason": "Forgot at work"
+  }
+]
+```
+
+---
+
+# FIT - EXERCISE DATA
+
+## Workout Library (PCOS-Specific)
+
+```json
+[
+  {
+    "workout_id": "WKT_001",
+    "workout_name": "15-min Gentle Yoga (Period)",
+    "workout_type": "yoga",
+    "difficulty": "easy",
+    "duration_mins": 15,
+    "calories_burned": 60,
+    "equipment_needed": "none",
+    "cycle_phase": "menstrual",
+    "intensity_level": "low",
+    "intensity_score": 2,
+    "description": "Gentle stretches and poses perfect for period week. Reduces cramps and bloating.",
+    "youtube_link": "https://youtube.com/watch?v=gentle-yoga-period",
+    "exercises": [
+      {"name": "Child's pose", "reps": "3 x 1 min", "rest": "30 sec"},
+      {"name": "Cat-cow stretch", "reps": "10 reps", "rest": "30 sec"},
+      {"name": "Legs up the wall", "reps": "5 min hold", "rest": "none"}
+    ],
+    "tags": ["period-friendly", "beginner", "low-energy", "cramp-relief"]
+  },
+  {
+    "workout_id": "WKT_002",
+    "workout_name": "25-min HIIT Circuit (Ovulation)",
+    "workout_type": "cardio",
+    "difficulty": "hard",
+    "duration_mins": 25,
+    "calories_burned": 250,
+    "equipment_needed": "bodyweight",
+    "cycle_phase": "ovulatory",
+    "intensity_level": "high",
+    "intensity_score": 9,
+    "description": "High-energy workout perfect for ovulation week. Maximize fat burn when metabolism is highest.",
+    "youtube_link": "https://youtube.com/watch?v=hiit-circuit",
+    "exercises": [
+      {"name": "Burpees", "reps": "15 reps", "rest": "15 sec"},
+      {"name": "Jump squats", "reps": "20 reps", "rest": "15 sec"},
+      {"name": "Push-ups", "reps": "15 reps", "rest": "15 sec"},
+      {"name": "High knees", "reps": "30 sec", "rest": "15 sec"}
+    ],
+    "tags": ["high-intensity", "fat-burn", "intermediate", "ovulation-peak"]
+  },
+  {
+    "workout_id": "WKT_003",
+    "workout_name": "20-min Strength Training (Full Body)",
+    "workout_type": "strength",
+    "difficulty": "medium",
+    "duration_mins": 20,
+    "calories_burned": 150,
+    "equipment_needed": "bottles/dumbbells",
+    "cycle_phase": "any",
+    "intensity_level": "medium",
+    "intensity_score": 6,
+    "description": "Build lean muscle with household items. Improves insulin sensitivity.",
+    "youtube_link": "https://youtube.com/watch?v=strength-training",
+    "exercises": [
+      {"name": "Squats", "reps": "3 x 12 reps", "rest": "45 sec"},
+      {"name": "Lunges", "reps": "3 x 10 each leg", "rest": "45 sec"},
+      {"name": "Push-ups", "reps": "3 x 10 reps", "rest": "45 sec"}
+    ],
+    "tags": ["strength", "insulin-sensitivity", "intermediate"]
+  },
+  {
+    "workout_id": "WKT_004",
+    "workout_name": "10-min Walk (Easy Recovery)",
+    "workout_type": "cardio",
+    "difficulty": "easy",
+    "duration_mins": 10,
+    "calories_burned": 50,
+    "equipment_needed": "none",
+    "cycle_phase": "menstrual",
+    "intensity_level": "low",
+    "intensity_score": 2,
+    "description": "Perfect for rest days or when energy is low. Every movement helps!",
+    "youtube_link": "https://youtube.com/watch?v=10min-walk",
+    "exercises": [
+      {"name": "Brisk walking", "reps": "10 min continuous", "rest": "none"}
+    ],
+    "tags": ["cardio", "recovery", "beginner", "anytime"]
+  }
+]
+```
+
+## User Workout Logs (USER_001 - Past 7 Days)
+
+```json
+[
+  {
+    "workout_log_id": "WL_001",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "time": "18:00",
+    "workout_id": "WKT_002",
+    "workout_name": "25-min HIIT Circuit",
+    "completed": true,
+    "duration_mins": 25,
+    "calories_burned_actual": 240,
+    "completed_at": "2025-11-29T18:30:00",
+    "notes": "Felt energetic! Completed all reps",
+    "heart_rate_avg": 145,
+    "heart_rate_max": 175
+  },
+  {
+    "workout_log_id": "WL_002",
+    "user_id": "USER_001",
+    "date": "2025-11-28",
+    "time": "07:00",
+    "workout_id": "WKT_003",
+    "workout_name": "20-min Strength Training",
+    "completed": true,
+    "duration_mins": 20,
+    "calories_burned_actual": 145,
+    "completed_at": "2025-11-28T07:25:00",
+    "notes": "Good morning session",
+    "heart_rate_avg": 110,
+    "heart_rate_max": 130
+  },
+  {
+    "workout_log_id": "WL_003",
+    "user_id": "USER_001",
+    "date": "2025-11-27",
+    "time": "18:30",
+    "workout_id": "WKT_001",
+    "workout_name": "15-min Gentle Yoga",
+    "completed": true,
+    "duration_mins": 15,
+    "calories_burned_actual": 60,
+    "completed_at": "2025-11-27T18:45:00",
+    "notes": "Cramps reduced after this",
+    "heart_rate_avg": 85,
+    "heart_rate_max": 95
+  },
+  {
+    "workout_log_id": "WL_004",
+    "user_id": "USER_001",
+    "date": "2025-11-26",
+    "time": "07:00",
+    "workout_id": "WKT_002",
+    "workout_name": "25-min HIIT Circuit",
+    "completed": false,
+    "duration_mins": 0,
+    "reason": "Overslept",
+    "missed_at": "2025-11-26T07:30:00",
+    "notes": "Feeling low energy today"
+  }
+]
+```
+
+---
+
+# AUSHADHI - MEDICATION DATA
+
+## Medication Profile (USER_001 - Priya)
+
+```json
+{
+  "user_id": "USER_001",
+  "medications": [
+    {
+      "med_id": "MED_001",
+      "name": "Metformin",
+      "dosage": "1000 mg",
+      "frequency": "twice daily",
+      "timing": ["08:00 AM with breakfast", "08:00 PM with dinner"],
+      "start_date": "2024-06-15",
+      "prescribed_by": "Dr. Sharma (Gynecologist)",
+      "purpose": "Insulin resistance management",
+      "side_effects": ["Nausea (week 1)", "Diarrhea (occasional)"],
+      "handling_tip": "Take with food to minimize nausea",
+      "refill_schedule": "Every 30 days",
+      "pharmacy": "PharmEasy",
+      "cost_per_month": "₹200"
+    },
+    {
+      "med_id": "MED_002",
+      "name": "Inositol Supplement",
+      "dosage": "2000 mg (2g)",
+      "frequency": "once daily",
+      "timing": ["09:00 AM"],
+      "start_date": "2024-08-01",
+      "prescribed_by": "Dr. Sharma (Gynecologist)",
+      "purpose": "PCOS management, ovulation support",
+      "side_effects": ["None reported"],
+      "handling_tip": "Take with food, mix with water/juice",
+      "refill_schedule": "Every 30 days",
+      "pharmacy": "Amazon / Local supplement store",
+      "cost_per_month": "₹500"
+    }
+  ]
+}
+```
+
+## Medication Adherence Logs (USER_001 - Past 7 Days)
+
+```json
+[
+  {
+    "adherence_log_id": "AD_001",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "med_id": "MED_001",
+    "medication": "Metformin 1000mg",
+    "scheduled_time": "08:00 AM",
+    "taken_time": "08:05 AM",
+    "status": "taken",
+    "notes": "Taken with breakfast",
+    "side_effects_reported": "none"
+  },
+  {
+    "adherence_log_id": "AD_002",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "med_id": "MED_001",
+    "medication": "Metformin 1000mg",
+    "scheduled_time": "08:00 PM",
+    "taken_time": "08:10 PM",
+    "status": "taken",
+    "notes": "Taken with dinner",
+    "side_effects_reported": "mild nausea (usual)"
+  },
+  {
+    "adherence_log_id": "AD_003",
+    "user_id": "USER_001",
+    "date": "2025-11-29",
+    "med_id": "MED_002",
+    "medication": "Inositol 2000mg",
+    "scheduled_time": "09:00 AM",
+    "taken_time": "09:15 AM",
+    "status": "taken",
+    "notes": "Mixed in juice",
+    "side_effects_reported": "none"
+  },
+  {
+    "adherence_log_id": "AD_004",
+    "user_id": "USER_001",
+    "date": "2025-11-28",
+    "med_id": "MED_001",
+    "medication": "Metformin 1000mg",
+    "scheduled_time": "08:00 AM",
+    "taken_time": "08:00 AM",
+    "status": "taken",
+    "notes": "",
+    "side_effects_reported": "none"
+  },
+  {
+    "adherence_log_id": "AD_005",
+    "user_id": "USER_001",
+    "date": "2025-11-28",
+    "med_id": "MED_001",
+    "medication": "Metformin 1000mg",
+    "scheduled_time": "08:00 PM",
+    "taken_time": "not_taken",
+    "status": "missed",
+    "reason": "Forgot at dinner",
+    "notes": "Was traveling back home",
+    "side_effects_reported": "none"
+  },
+  {
+    "adherence_log_id": "AD_006",
+    "user_id": "USER_001",
+    "date": "2025-11-28",
+    "med_id": "MED_002",
+    "medication": "Inositol 2000mg",
+    "scheduled_time": "09:00 AM",
+    "taken_time": "09:00 AM",
+    "status": "taken",
+    "notes": "",
+    "side_effects_reported": "none"
+  }
+]
+```
+
+---
+
+# CHANDRA - CYCLE DATA
+
+## User Cycle Profile (USER_001 - Priya)
+
+```json
+{
+  "user_id": "USER_001",
+  "cycle_profile": {
+    "average_cycle_length": 42,
+    "cycle_length_range": [38, 48],
+    "average_period_duration": 5,
+    "period_flow_type": "moderate",
+    "last_period_start": "2025-11-21",
+    "last_period_end": "2025-11-26",
+    "predicted_next_period": "2025-12-03",
+    "prediction_confidence": "91%",
+    "prediction_range": ["2025-12-01", "2025-12-05"],
+    "ovulation_date": "2025-11-28",
+    "fertile_window": ["2025-11-26", "2025-11-30"]
+  }
+}
+```
+
+## Detailed Cycle History (Last 3 Cycles - USER_001)
+
+```json
+[
+  {
+    "cycle_id": "CYCLE_001",
+    "user_id": "USER_001",
+    "cycle_number": 1,
+    "period_start": "2025-11-21",
+    "period_end": "2025-11-26",
+    "period_duration_days": 5,
+    "period_flow": "moderate",
+    "cycle_length": 42,
+    "ovulation_date": "2025-11-28",
+    "lh_surge_confirmed": true,
+    "bbt_rise_confirmed": true,
+    "symptoms_recorded": {
+      "cramps": 7,
+      "bloating": 6,
+      "breast_tenderness": 5,
+      "mood_changes": 6,
+      "energy_level": 3
+    },
+    "phases": {
+      "menstrual": {
+        "start": "2025-11-21",
+        "end": "2025-11-26",
+        "duration": 5,
+        "energy_level": 3,
+        "recommended_workouts": ["gentle yoga", "walking"]
+      },
+      "follicular": {
+        "start": "2025-11-27",
+        "end": "2025-11-27",
+        "duration": 1,
+        "energy_level": 6,
+        "recommended_workouts": ["strength training"]
+      },
+      "ovulatory": {
+        "start": "2025-11-28",
+        "end": "2025-11-30",
+        "duration": 3,
+        "energy_level": 9,
+        "recommended_workouts": ["HIIT", "intense cardio"]
+      },
+      "luteal": {
+        "start": "2025-12-01",
+        "end": "2025-12-02",
+        "duration": 2,
+        "energy_level": 5,
+        "recommended_workouts": ["moderate strength"]
+      }
+    }
+  },
+  {
+    "cycle_id": "CYCLE_002",
+    "user_id": "USER_001",
+    "cycle_number": 2,
+    "period_start": "2025-10-10",
+    "period_end": "2025-10-14",
+    "period_duration_days": 4,
+    "period_flow": "light",
+    "cycle_length": 38,
+    "ovulation_date": "2025-10-16",
+    "lh_surge_confirmed": true,
+    "bbt_rise_confirmed": false,
+    "symptoms_recorded": {
+      "cramps": 5,
+      "bloating": 4,
+      "breast_tenderness": 3,
+      "mood_changes": 4,
+      "energy_level": 4
+    }
+  },
+  {
+    "cycle_id": "CYCLE_003",
+    "user_id": "USER_001",
+    "cycle_number": 3,
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-06",
+    "period_duration_days": 5,
+    "period_flow": "heavy",
+    "cycle_length": 45,
+    "ovulation_date": "2025-09-08",
+    "lh_surge_confirmed": true,
+    "bbt_rise_confirmed": true,
+    "symptoms_recorded": {
+      "cramps": 8,
+      "bloating": 7,
+      "breast_tenderness": 6,
+      "mood_changes": 7,
+      "energy_level": 2
+    }
+  }
+]
+```
+
+## Daily Cycle Tracking Logs (USER_001 - Current Cycle)
+
+```json
+[
+  {
+    "tracking_log_id": "TRK_001",
+    "user_id": "USER_001",
+    "date": "2025-11-21",
+    "cycle_phase": "menstrual",
+    "period_start": true,
+    "period_intensity": 8,
+    "flow_description": "heavy",
+    "symptoms": ["cramps", "bloating", "mood_low"],
+    "energy_level": 2,
+    "notes": "Day 1 of period, strong cramps",
+    "logged_at": "2025-11-21T09:00:00"
+  },
+  {
+    "tracking_log_id": "TRK_002",
+    "user_id": "USER_001",
+    "date": "2025-11-26",
+    "cycle_phase": "menstrual",
+    "period_end": true,
+    "flow_description": "light",
+    "symptoms": [],
+    "energy_level": 4,
+    "notes": "Period ended, feeling better",
+    "logged_at": "2025-11-26T18:00:00"
+  },
+  {
+    "tracking_log_id": "TRK_003",
+    "user_id": "USER_001",
+    "date": "2025-11-28",
+    "cycle_phase": "ovulatory",
+    "lh_surge_detected": true,
+    "bbt_rise": 0.35,
+    "symptoms": ["breast_tenderness", "energy_high"],
+    "energy_level": 9,
+    "cervical_mucus": "egg-white",
+    "notes": "LH surge detected! Ovulation confirmed",
+    "logged_at": "2025-11-28T08:00:00"
+  }
+]
+```
+
+---
+
+# SANGHA - COMMUNITY DATA
+
+## Community Groups
+
+```json
+[
+  {
+    "group_id": "GRP_001",
+    "group_name": "Mumbai PCOS TTC Warriors",
+    "group_type": "closed",
+    "location": "Mumbai",
+    "members_count": 47,
+    "focus_areas": ["fertility", "trying to conceive", "cycle tracking"],
+    "language": "English/Hinglish",
+    "created_date": "2024-09-15",
+    "moderators": ["Dr. Neha Sharma", "Priya Kumar"],
+    "description": "Support group for PCOS women trying to conceive. Share experiences, ask questions, celebrate wins!",
+    "rules": [
+      "No medical advice - only share experiences",
+      "No product selling",
+      "Be empathetic and supportive",
+      "Respect privacy"
+    ],
+    "activity_level": "high",
+    "avg_posts_per_day": 12
+  },
+  {
+    "group_id": "GRP_002",
+    "group_name": "Delhi PCOS Lifestyle",
+    "group_type": "closed",
+    "location": "Delhi",
+    "members_count": 62,
+    "focus_areas": ["weight loss", "fitness", "general wellness"],
+    "language": "English/Hindi",
+    "created_date": "2024-08-01",
+    "moderators": ["Anjali Sharma", "Rajesh Kumar"],
+    "description": "Focus on lifestyle management, fitness routines, and healthy eating",
+    "rules": [
+      "Share success stories",
+      "No diet fads or quick fixes",
+      "Medical questions refer to doctors",
+      "Support first, judgment never"
+    ],
+    "activity_level": "medium",
+    "avg_posts_per_day": 8
+  },
+  {
+    "group_id": "GRP_003",
+    "group_name": "Bangalore PCOS Support",
+    "group_type": "closed",
+    "location": "Bangalore",
+    "members_count": 35,
+    "focus_areas": ["general support", "symptom management", "doctor recommendations"],
+    "language": "English",
+    "created_date": "2024-10-05",
+    "moderators": ["Meera Reddy"],
+    "description": "General PCOS support for Bangalore region. All topics welcome!",
+    "activity_level": "medium",
+    "avg_posts_per_day": 6
+  }
+]
+```
+
+## Community Posts & Comments
+
+```json
+[
+  {
+    "post_id": "POST_001",
+    "group_id": "GRP_001",
+    "author_id": "USER_001",
+    "author_name": "Priya Kumar",
+    "title": "Got my LH surge! Ovulation confirmed 🎉",
+    "content": "After 3 months of tracking, finally got a clear LH surge today! SHAKTHI's cycle predictions were 91% accurate. So hopeful this month!",
+    "type": "victory",
+    "posted_at": "2025-11-28T10:30:00",
+    "reactions": {
+      "❤️": 24,
+      "🎉": 18,
+      "💪": 12,
+      "🙏": 8
+    },
+    "comments_count": 15,
+    "comments": [
+      {
+        "comment_id": "CMT_001",
+        "author_id": "USER_002",
+        "author_name": "Anjali Sharma",
+        "text": "Yay Priya! Fingers crossed for you! 🤞",
+        "posted_at": "2025-11-28T11:00:00",
+        "reactions": {"❤️": 5}
+      },
+      {
+        "comment_id": "CMT_002",
+        "author_id": "USER_003",
+        "author_name": "Meera Reddy",
+        "text": "This is so encouraging! Keep us posted 💕",
+        "posted_at": "2025-11-28T11:30:00",
+        "reactions": {"❤️": 8}
+      }
+    ]
+  },
+  {
+    "post_id": "POST_002",
+    "group_id": "GRP_001",
+    "author_id": "USER_004",
+    "author_name": "Sneha Patel",
+    "title": "Questions about Metformin side effects?",
+    "content": "Started Metformin last week and experiencing severe nausea. Is this normal? How long did it take for you to adjust?",
+    "type": "question",
+    "posted_at": "2025-11-27T14:20:00",
+    "reactions": {"💛": 3},
+    "comments_count": 8
+  },
+  {
+    "post_id": "POST_003",
+    "group_id": "GRP_002",
+    "author_id": "USER_002",
+    "author_name": "Anjali Sharma",
+    "title": "Lost 3 kg this month with SHAKTHI meal plans!",
+    "content": "Been using SHAKTHI for 2 months. The personalized Indian meal plans are game-changing. Combined with the adaptive workouts, I've lost 3kg and my energy is 10x better!",
+    "type": "victory",
+    "posted_at": "2025-11-26T16:45:00",
+    "reactions": {
+      "🎉": 31,
+      "💪": 22,
+      "❤️": 15
+    },
+    "comments_count": 12
+  }
+]
+```
+
+## Upcoming Community Events
+
+```json
+[
+  {
+    "event_id": "EVT_001",
+    "group_id": "GRP_001",
+    "event_name": "Expert AMA: Fertility Planning with PCOS",
+    "event_type": "live_qa",
+    "host": "Dr. Neha Sharma (Fertility Specialist)",
+    "date": "2025-12-05",
+    "time": "7:00 PM IST",
+    "duration_mins": 60,
+    "capacity": 100,
+    "registered_count": 47,
+    "description": "Live Q&A session about fertility management, medication timing, and success stories",
+    "recording_available": false
+  },
+  {
+    "event_id": "EVT_002",
+    "group_id": "GRP_002",
+    "event_name": "Mumbai PCOS Meetup - Coffee & Conversation",
+    "event_type": "in_person",
+    "location": "Cafe Coffee Day, Andheri",
+    "date": "2025-12-07",
+    "time": "5:00 PM",
+    "capacity": 20,
+    "registered_count": 12,
+    "description": "In-person meetup for PCOS women in Mumbai. Share experiences, make friends, support each other!",
+    "organizer": "Anjali Sharma"
+  }
+]
+```
+
+---
+
+# AGENT COORDINATION LOGS
+
+## Real-Time Coordination Example (USER_001 - Current)
+
+```json
+{
+  "coordination_event_id": "COORD_001",
+  "user_id": "USER_001",
+  "timestamp": "2025-11-28T08:00:00",
+  "trigger_agent": "CHANDRA",
+  "trigger_event": "LH surge detected - Ovulation phase identified",
+  "coordinated_actions": [
+    {
+      "agent": "FIT",
+      "action": "Update workout recommendation",
+      "old_recommendation": "20-min strength training",
+      "new_recommendation": "25-min HIIT circuit",
+      "reasoning": "High energy phase - maximize fat burn and workout intensity",
+      "user_notification": "📲 Feeling energetic today? Let's do 25-min HIIT! Your body is primed. Here's the routine: [link]"
+    },
+    {
+      "agent": "AAHAR",
+      "action": "No meal plan change (normal energy phase)"
+    },
+    {
+      "agent": "SANGHA",
+      "action": "Send group notification",
+      "group_id": "GRP_001",
+      "message": "Fun fact: This is the best time to try that intense workout you've been avoiding! Your metabolism and strength peak during ovulation. Who's joining me for HIIT today? 💪"
+    }
+  ],
+  "status": "completed",
+  "log_created_at": "2025-11-28T08:05:00"
+}
+```
+
+```json
+{
+  "coordination_event_id": "COORD_002",
+  "user_id": "USER_001",
+  "timestamp": "2025-11-26T18:00:00",
+  "trigger_agent": "CHANDRA",
+  "trigger_event": "Period ended - Menstrual phase concluded",
+  "coordinated_actions": [
+    {
+      "agent": "AAHAR",
+      "action": "Remove iron-rich food supplementation",
+      "old_focus": "Iron-rich foods (spinach, dates, jaggery)",
+      "new_focus": "Return to normal balanced meals",
+      "reasoning": "Period ended, iron supplementation no longer needed",
+      "next_meal_recommendation": "Moong dal chilla with yogurt (normal GI plan)"
+    },
+    {
+      "agent": "FIT",
+      "action": "Increase workout intensity",
+      "old_recommendation": "10-min gentle walk, 15-min yoga",
+      "new_recommendation": "20-min strength training",
+      "reasoning": "Energy rising post-period, ready for moderate intensity",
+      "user_notification": "🏋️ Period phase over! Energy is rising. Let's do some strength training tomorrow. Here's a 20-min routine: [link]"
+    },
+    {
+      "agent": "AUSHADHI",
+      "action": "No change to medication schedule"
+    }
+  ],
+  "status": "completed",
+  "log_created_at": "2025-11-26T18:10:00"
+}
+```
+
+---
+
+# HOW TO USE THIS DATA
+
+## Option 1: Import into Google Sheets
+
+**Step 1**: Create separate sheets for each agent:
+- `user_profiles`
+- `meals`
+- `meal_logs`
+- `workouts`
+- `workout_logs`
+- `medications`
+- `medication_adherence`
+- `cycle_data`
+- `cycle_logs`
+- `community_groups`
+- `community_posts`
+- `coordination_logs`
+
+**Step 2**: Copy-paste data from each JSON section into corresponding sheets
+
+**Step 3**: Use Google Sheets API in n8n to:
+```
+- Read user profiles
+- Write meal logs when user logs meal
+- Read medication schedule
+- Write adherence logs when user confirms medication
+- Read cycle history
+- Write cycle tracking data
+- Read community posts
+```
+
+## Option 2: Import into PostgreSQL
+
+**Create Tables**:
+```sql
+CREATE TABLE users (
+  user_id VARCHAR(20) PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  city VARCHAR(50),
+  phone VARCHAR(20),
+  email VARCHAR(100),
+  pcos_type VARCHAR(50),
+  created_at TIMESTAMP
+);
+
+CREATE TABLE meals (
+  meal_id VARCHAR(20) PRIMARY KEY,
+  meal_name VARCHAR(200),
+  glycemic_index INT,
+  calories INT,
+  cost_inr INT,
+  tags JSON
+);
+
+CREATE TABLE meal_logs (
+  log_id VARCHAR(20) PRIMARY KEY,
+  user_id VARCHAR(20),
+  date DATE,
+  meal_id VARCHAR(20),
+  status VARCHAR(20),
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (meal_id) REFERENCES meals(meal_id)
+);
+
+CREATE TABLE workouts (
+  workout_id VARCHAR(20) PRIMARY KEY,
+  workout_name VARCHAR(200),
+  duration_mins INT,
+  difficulty VARCHAR(20),
+  cycle_phase VARCHAR(50)
+);
+
+CREATE TABLE workout_logs (
+  log_id VARCHAR(20) PRIMARY KEY,
+  user_id VARCHAR(20),
+  workout_id VARCHAR(20),
+  date DATE,
+  completed BOOLEAN,
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (workout_id) REFERENCES workouts(workout_id)
+);
+
+CREATE TABLE medications (
+  med_id VARCHAR(20) PRIMARY KEY,
+  user_id VARCHAR(20),
+  name VARCHAR(200),
+  dosage VARCHAR(100),
+  frequency VARCHAR(100),
+  timing JSON,
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE medication_adherence (
+  log_id VARCHAR(20) PRIMARY KEY,
+  user_id VARCHAR(20),
+  med_id VARCHAR(20),
+  date DATE,
+  status VARCHAR(20),
+  notes TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (med_id) REFERENCES medications(med_id)
+);
+
+CREATE TABLE cycle_data (
+  cycle_id VARCHAR(20) PRIMARY KEY,
+  user_id VARCHAR(20),
+  period_start DATE,
+  period_end DATE,
+  cycle_length INT,
+  ovulation_date DATE,
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE community_groups (
+  group_id VARCHAR(20) PRIMARY KEY,
+  group_name VARCHAR(200),
+  location VARCHAR(100),
+  members_count INT,
+  created_date DATE
+);
+
+CREATE TABLE community_posts (
+  post_id VARCHAR(20) PRIMARY KEY,
+  group_id VARCHAR(20),
+  author_id VARCHAR(20),
+  title VARCHAR(500),
+  content TEXT,
+  posted_at TIMESTAMP,
+  FOREIGN KEY (group_id) REFERENCES community_groups(group_id),
+  FOREIGN KEY (author_id) REFERENCES users(user_id)
+);
+```
+
+**Insert Sample Data**:
+Use the JSON data provided above to populate these tables using INSERT statements.
+
+## Option 3: Use in n8n Workflow
+
+**In n8n, create nodes:**
+
+1. **Get User Profile** → Read from Google Sheets / PostgreSQL
+2. **Get User's Current Cycle Phase** → Query cycle_data table
+3. **Trigger Agents** (AAHAR, FIT, AUSHADHI, etc.)
+4. **Log Actions** → Write to meal_logs, workout_logs, adherence_logs
+5. **Coordinate** → If CHANDRA detects phase change → Update FIT/AAHAR
+
+**Example n8n Flow**:
+```
+Webhook (User sends message)
+  ↓
+Extract user_id from message
+  ↓
+Get user profile (name, preferences)
+  ↓
+Get current cycle phase from CHANDRA data
+  ↓
+Route to appropriate agent (AAHAR/FIT/AUSHADHI)
+  ↓
+Agent generates response (Gemini 2.0 Flash)
+  ↓
+Log action to database
+  ↓
+Send WhatsApp response
+```
+
+## Test Scenarios
+
+**Scenario 1: User Logs Meal**
+- Input: "Just had moong dal chilla"
+- Expected: AAHAR logs meal, returns GI, calories, feedback
+
+**Scenario 2: User Reports Period Start**
+- Input: "Period started today"
+- Expected: CHANDRA logs period, calculates cycle length, triggers FIT to adjust workout, triggers AAHAR to add iron foods
+
+**Scenario 3: User Confirms Medication**
+- Input: "Took Metformin"
+- Expected: AUSHADHI logs adherence, asks about side effects, tracks for monthly report
+
+**Scenario 4: User Asks for Workout**
+- Input: "What should I do today?"
+- Expected: FIT checks cycle phase, recommends appropriate workout, logs as "pending completion"
+
+---
+
+## Key Metrics to Track
+
+- **AAHAR**: Meal adherence rate (target: 85%)
+- **FIT**: Workout completion rate (target: 75%)
+- **AUSHADHI**: Medication adherence (target: 92%)
+- **CHANDRA**: Cycle prediction accuracy (target: 91%)
+- **SANGHA**: Community engagement (posts/comments per day)
+
+---
+
+**This dummy data is production-ready. Use it to test all 5 agents, cross-agent coordination, and user journeys. Good luck with your prototype! 🚀**
