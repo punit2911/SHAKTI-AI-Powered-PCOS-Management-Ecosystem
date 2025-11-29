@@ -81,7 +81,6 @@ n8n start
 ```
 
 ### Import Workflow
-- Open **http://localhost:5678**
 - Navigate to **Workflows → Import**
 - Select `workflow_n8n_shakthi_twilio.json`
 
@@ -123,13 +122,6 @@ The system replies with personalized insights from all five agents.
 | Nutrition compliance | +31% |
 | Emotional support | +65% |
 | Prediction reliability | Improves with usage |
-
-## 🖼 Demo Screenshots (Add later)
-```
-assets/architecture.png
-assets/whatsapp-demo-1.png
-assets/agent-flow.png
-```
 
 ## 🧠 Future Scope
 - Wearable device integration
