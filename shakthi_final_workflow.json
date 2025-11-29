@@ -1,0 +1,722 @@
+{
+  "name": "SHAKTHI - Full Agentic PCOS Ecosystem (Twilio WhatsApp)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "whatsapp",
+        "httpMethod": "POST",
+        "responseMode": "onReceived",
+        "responseData": "={{ $json }}"
+      },
+      "id": "webhook_incoming_1",
+      "name": "Webhook - WhatsApp Incoming",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT user_id, phone, name, city, preferred_gi, subscribed_digest, last_meal, current_cycle_phase FROM users WHERE user_id = '={{ $json[\"from\"] }}' LIMIT 1;"
+      },
+      "id": "postgres_fetch_user_1",
+      "name": "Fetch User Profile",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        460,
+        200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const row = $input.item.json.rows && $input.item.json.rows[0] ? $input.item.json.rows[0] : null;\nif(!row) {\n  return { json: { skip: true } };\n}\nconst now = new Date();\nconst hour = now.getHours();\nconst mealTime = hour < 11 ? 'breakfast' : (hour < 16 ? 'lunch' : 'dinner');\nconst recommended = mealTime === 'breakfast' ? 'Poha + sprouts (low GI) | ~20mins' : (mealTime === 'lunch' ? 'Quinoa salad + grilled paneer | ~25mins' : 'Grilled fish/tofu + mixed veg | ~30mins');\nreturn { json: { user_id: row.user_id, phone: row.phone, name: row.name, preferred_gi: row.preferred_gi, last_meal: row.last_meal, schedule: mealTime, recommendation: recommended } };"
+      },
+      "id": "aahar_code_1",
+      "name": "AAHAR - Meal Planner (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "Hi {{ $json.name }}, your {{ $json.schedule }} suggestion: {{ $json.recommendation }}. Reply DONE after eating."
+      },
+      "id": "aahar_twilio_1",
+      "name": "AAHAR - Send Meal Nudge (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        940,
+        80
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const row = $input.item.json.rows && $input.item.json.rows[0] ? $input.item.json.rows[0] : null;\nif(!row) return { json: { skip: true } };\nconst cyclePhase = row.current_cycle_phase || 'unknown';\nconst plan = cyclePhase === 'luteal' ? '15 min gentle yoga' : '20 min moderate cardio';\nreturn { json: { user_id: row.user_id, phone: row.phone, name: row.name, plan } };"
+      },
+      "id": "swasthya_code_1",
+      "name": "SWASTHYA - Exercise Planner (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "Hi {{ $json.name }}, today's exercise: {{ $json.plan }}. Reply DONE when finished."
+      },
+      "id": "swasthya_twilio_1",
+      "name": "SWASTHYA - Send Exercise Nudge (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        940,
+        200
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, user_id, med_name, dose_info, next_dose, with_meal FROM medications WHERE user_id = '={{ $json[\"rows\"][0][\"user_id\"] }}' AND next_dose <= NOW() + INTERVAL '1 hour';"
+      },
+      "id": "aushadi_fetch_meds_1",
+      "name": "AUSHADI - Fetch Due Meds",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        700,
+        340
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.item.json.rows || [];\nif(rows.length === 0) return { json: { skip: true } };\nconst med = rows[0];\nconst message = `Reminder: Take ${med.med_name} (${med.dose_info})${med.with_meal ? ' with meal' : ''}. Reply TAKEN after dose.`;\nreturn { json: { med_id: med.id, user_id: med.user_id, phone: $input.parametersFromTrigger ? $input.parametersFromTrigger : $input.item.json.rows[0].user_id, message } };"
+      },
+      "id": "aushadi_reminder_code_1",
+      "name": "AUSHADI - Reminder Logic (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "={{ $json.message }}"
+      },
+      "id": "aushadi_twilio_1",
+      "name": "AUSHADI - Send Med Reminder (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        340
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO med_misses (med_id, miss_count, last_miss_at) VALUES ({{ $json.med_id }}, 0, NOW()) ON CONFLICT (med_id) DO UPDATE SET miss_count = med_misses.miss_count + 0, last_miss_at = NOW(); SELECT med_id, miss_count FROM med_misses WHERE med_id = {{ $json.med_id }};"
+      },
+      "id": "aushadi_log_send_1",
+      "name": "AUSHADI - Log Send (DB)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        440
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT miss_count FROM med_misses WHERE med_id = {{ $json.med_id }} LIMIT 1;"
+      },
+      "id": "aushadi_check_miss_1",
+      "name": "AUSHADI - Check Miss Count",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        700,
+        460
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json[0].miss_count }}",
+              "rightValue": "3",
+              "operator": {
+                "type": "number",
+                "operation": "greaterOrEqual"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "aushadi_switch_1",
+      "name": "AUSHADI - Misses Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        940,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "Alert: Patient {{ $json.name }} missed medication 3+ times. Please contact."
+      },
+      "id": "aushadi_escalate_twilio_1",
+      "name": "AUSHADI - Escalate to Clinician (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        520
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM cycles WHERE user_id = '={{ $json[\"rows\"][0][\"user_id\"] }}' ORDER BY period_start DESC LIMIT 12;"
+      },
+      "id": "chandra_fetch_cycles_1",
+      "name": "CHANDRA - Fetch Cycle History",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        700,
+        620
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.item.json.rows || [];\nif(rows.length === 0) return { json: { next_period: null, confidence: 0 } };\nconst durations = rows.map(r => (new Date(r.period_end) - new Date(r.period_start)) / (1000 * 60 * 60 * 24));\nconst avgPeriodLength = Math.round(durations.reduce((a,b) => a + b, 0) / durations.length);\nconst starts = rows.map(r => new Date(r.period_start));\nconst cycleDiffs = [];\nfor(let i=0;i<starts.length-1;i++){ cycleDiffs.push((starts[i] - starts[i+1])/(1000*60*60*24)); }\nconst avgCycleDays = cycleDiffs.length>0 ? Math.round(cycleDiffs.reduce((a,b)=>a+b,0)/cycleDiffs.length) : 28;\nconst predictedNext = new Date(starts[0].getTime() + avgCycleDays * 24 * 60 * 60 * 1000);\nconst confidence = Math.min(95, 50 + Math.round(rows.length * 3));\nreturn { json: { next_period: predictedNext.toISOString().split('T')[0], confidence, avg_cycle_days: avgCycleDays } };"
+      },
+      "id": "chandra_predict_1",
+      "name": "CHANDRA - Predict Next Period (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "Next period predicted: {{ $json.next_period }} (Confidence: {{ $json.confidence }}%)."
+      },
+      "id": "chandra_twilio_1",
+      "name": "CHANDRA - Send Cycle Prediction (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        620
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, name, city, main_concern, age_group FROM users WHERE city = '={{ $json[\"rows\"][0][\"city\"] }}' AND user_id != '={{ $json[\"rows\"][0][\"user_id\"] }}' LIMIT 50;"
+      },
+      "id": "sangha_fetch_peers_1",
+      "name": "SANGHA - Fetch Potential Matches",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        700,
+        820
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.item.json.rows || [];\nconst matches = rows.slice(0,5).map(r => ({ id: r.id, name: r.name, city: r.city, concern: r.main_concern }));\nreturn { json: { matches } };"
+      },
+      "id": "sangha_match_1",
+      "name": "SANGHA - Match Algorithm (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        940,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "We found {{ $json.matches.length }} matches near you. First match: {{ $json.matches[0].name }}. Reply CONNECT to create group."
+      },
+      "id": "sangha_twilio_1",
+      "name": "SANGHA - Send Matches (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        1180,
+        820
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO events (user_id, event_type, payload, created_at) VALUES ('={{ $json.user_id }}', 'agent_event', $1, NOW()) RETURNING id;",
+        "options": {
+          "additionalFields": {}
+        }
+      },
+      "id": "log_event_1",
+      "name": "Write Event Log (DB)",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        1400,
+        520
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "schedule_daily_1",
+      "name": "Schedule - Daily Digest",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        200,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT user_id, phone FROM users WHERE subscribed_digest = true;"
+      },
+      "id": "digest_fetch_users_1",
+      "name": "Fetch Digest Users",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [
+        420,
+        520
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "POSTGRES_CRED_ID",
+          "name": "Postgres Database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.item.json.rows || [];\nif(rows.length === 0) return { json: { skip: true } };\nreturn rows.map(r => ({ json: { user_id: r.user_id, phone: r.phone, digest: 'Your daily SHAKTHI summary: Meal ✓ Exercise ✓ Cycle ✓ Community ✓' } }));"
+      },
+      "id": "digest_compile_1",
+      "name": "Compile Daily Digest (Code)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        650,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "messageType": "whatsapp",
+        "to": "={{ $json.phone }}",
+        "message": "={{ $json.digest }}"
+      },
+      "id": "digest_twilio_1",
+      "name": "Send Daily Digest (Twilio WhatsApp)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 2,
+      "position": [
+        900,
+        520
+      ],
+      "credentials": {
+        "twilioApi": {
+          "id": "TWILIO_CRED_ID",
+          "name": "Twilio Account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook - WhatsApp Incoming": {
+      "main": [
+        [
+          {
+            "node": "Fetch User Profile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch User Profile": {
+      "main": [
+        [
+          {
+            "node": "AAHAR - Meal Planner (Code)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SWASTHYA - Exercise Planner (Code)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AUSHADI - Fetch Due Meds",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CHANDRA - Fetch Cycle History",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SANGHA - Fetch Potential Matches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AAHAR - Meal Planner (Code)": {
+      "main": [
+        [
+          {
+            "node": "AAHAR - Send Meal Nudge (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AAHAR - Send Meal Nudge (Twilio WhatsApp)": {
+      "main": [
+        [
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SWASTHYA - Exercise Planner (Code)": {
+      "main": [
+        [
+          {
+            "node": "SWASTHYA - Send Exercise Nudge (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SWASTHYA - Send Exercise Nudge (Twilio WhatsApp)": {
+      "main": [
+        [
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AUSHADI - Fetch Due Meds": {
+      "main": [
+        [
+          {
+            "node": "AUSHADI - Reminder Logic (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AUSHADI - Reminder Logic (Code)": {
+      "main": [
+        [
+          {
+            "node": "AUSHADI - Send Med Reminder (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AUSHADI - Log Send (DB)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AUSHADI - Check Miss Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AUSHADI - Check Miss Count": {
+      "main": [
+        [
+          {
+            "node": "AUSHADI - Misses Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AUSHADI - Misses Switch": {
+      "main": [
+        [
+          {
+            "node": "AUSHADI - Escalate to Clinician (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CHANDRA - Fetch Cycle History": {
+      "main": [
+        [
+          {
+            "node": "CHANDRA - Predict Next Period (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CHANDRA - Predict Next Period (Code)": {
+      "main": [
+        [
+          {
+            "node": "CHANDRA - Send Cycle Prediction (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SANGHA - Fetch Potential Matches": {
+      "main": [
+        [
+          {
+            "node": "SANGHA - Match Algorithm (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SANGHA - Match Algorithm (Code)": {
+      "main": [
+        [
+          {
+            "node": "SANGHA - Send Matches (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule - Daily Digest": {
+      "main": [
+        [
+          {
+            "node": "Fetch Digest Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Digest Users": {
+      "main": [
+        [
+          {
+            "node": "Compile Daily Digest (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compile Daily Digest (Code)": {
+      "main": [
+        [
+          {
+            "node": "Send Daily Digest (Twilio WhatsApp)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Write Event Log (DB)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "shakthi_twilio_v1",
+  "triggerCount": 1
+}
